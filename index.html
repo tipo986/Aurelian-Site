@@ -8,334 +8,234 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --np: #9D00FF;
-    --npl: #BF5FFF;
-    --npd: #6600CC;
-    --npx: #4B0082;
-  }
-
+  :root { --np: #9D00FF; --npl: #BF5FFF; --npd: #6600CC; --npx: #4B0082; }
   html { scroll-behavior: smooth; }
-
-  body {
-    background: #000;
-    font-family: 'Rajdhani', sans-serif;
-    color: #fff;
-    overflow-x: hidden;
-    min-height: 100vh;
-  }
-
-  /* ═══ SCROLLBAR ═══ */
+  body { background: #000; font-family: 'Rajdhani', sans-serif; color: #fff; overflow-x: hidden; min-height: 100vh; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: #000; }
   ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#6600CC,#BF5FFF); border-radius:4px; }
-
-  /* ═══ BG GRID ═══ */
   .bg-grid {
     background-image:
       linear-gradient(rgba(157,0,255,.028) 1px, transparent 1px),
       linear-gradient(90deg, rgba(157,0,255,.028) 1px, transparent 1px);
     background-size: 55px 55px;
   }
-
-  /* ═══ BACKGROUND ORBS ═══ */
-  .orb {
-    position: fixed; border-radius: 50%;
-    filter: blur(110px); pointer-events: none; z-index: 0;
-  }
-
-  /* ═══ SCANLINES ═══ */
-  .scanlines {
-    position: fixed; inset: 0; pointer-events: none; z-index: 200;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px,
-      rgba(0,0,0,.012) 2px, rgba(0,0,0,.012) 4px
-    );
-  }
-
-  /* ═══ TYPOGRAPHY ═══ */
+  .orb { position: fixed; border-radius: 50%; filter: blur(110px); pointer-events: none; z-index: 0; }
+  .scanlines { position: fixed; inset: 0; pointer-events: none; z-index: 200; background: repeating-linear-gradient(0deg,rgba(0,0,0,0) 0px,rgba(0,0,0,0) 2px,rgba(0,0,0,.012) 2px,rgba(0,0,0,.012) 4px); }
   .font-orb { font-family: 'Orbitron', monospace; }
-
   .glass-title {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    background: linear-gradient(
-      160deg,
-      #fff 0%, #f0d4ff 15%, #d68fff 30%,
-      #bf5fff 45%, #9d00ff 62%,
-      #7b00cc 78%, #4b0082 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter:
-      drop-shadow(0 0 22px rgba(157,0,255,.95))
-      drop-shadow(0 0 50px rgba(157,0,255,.5))
-      drop-shadow(0 0 90px rgba(157,0,255,.25));
+    font-family: 'Orbitron', monospace; font-weight: 900;
+    background: linear-gradient(160deg,#fff 0%,#f0d4ff 15%,#d68fff 30%,#bf5fff 45%,#9d00ff 62%,#7b00cc 78%,#4b0082 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    filter: drop-shadow(0 0 22px rgba(157,0,255,.95)) drop-shadow(0 0 50px rgba(157,0,255,.5)) drop-shadow(0 0 90px rgba(157,0,255,.25));
   }
-
-  /* ═══ GLASS CARD ═══ */
   .glass-card {
-    background: rgba(12,0,28,.55);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(12,0,28,.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(157,0,255,.22);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,.035),
-      0 0 30px rgba(157,0,255,.08),
-      0 20px 50px rgba(0,0,0,.55);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.035), 0 0 30px rgba(157,0,255,.08), 0 20px 50px rgba(0,0,0,.55);
     transition: all .4s cubic-bezier(.25,.46,.45,.94);
   }
-  .glass-card:hover {
-    border-color: rgba(157,0,255,.65);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,.06),
-      0 0 55px rgba(157,0,255,.22),
-      0 30px 70px rgba(0,0,0,.65);
-    transform: translateY(-7px);
-  }
-
-  /* ═══ NAV ═══ */
-  .glass-nav {
-    background: rgba(4,0,10,.78);
-    backdrop-filter: blur(26px);
-    -webkit-backdrop-filter: blur(26px);
-    border-bottom: 1px solid rgba(157,0,255,.14);
-  }
-
-  /* ═══ LOGO ═══ */
+  .glass-card:hover { border-color: rgba(157,0,255,.65); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 0 55px rgba(157,0,255,.22), 0 30px 70px rgba(0,0,0,.65); transform: translateY(-7px); }
+  .glass-nav { background: rgba(4,0,10,.78); backdrop-filter: blur(26px); -webkit-backdrop-filter: blur(26px); border-bottom: 1px solid rgba(157,0,255,.14); }
   .logo-a {
-    width: 44px; height: 44px;
-    background: linear-gradient(145deg,#7b00ff,#bf5fff,#9d00ff);
-    border-radius: 12px;
+    width: 44px; height: 44px; background: linear-gradient(145deg,#7b00ff,#bf5fff,#9d00ff); border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.35rem; color: #fff;
     position: relative; overflow: hidden;
     box-shadow: 0 0 22px rgba(157,0,255,.75), 0 0 45px rgba(157,0,255,.35), inset 0 1px 0 rgba(255,255,255,.3);
-    animation: logo-pulse 3.2s ease-in-out infinite;
-    flex-shrink: 0;
+    animation: logo-pulse 3.2s ease-in-out infinite; flex-shrink: 0;
   }
-  .logo-a::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.22) 50%, transparent 65%);
-    animation: logo-shine 3.2s ease-in-out infinite;
-  }
-
-  /* Logo image version — swap when ready:
-     <img src="1000037471.jpg" alt="Aurelian" class="logo-img"> */
-  .logo-img {
-    width: 44px; height: 44px; object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 0 22px rgba(157,0,255,.75), 0 0 45px rgba(157,0,255,.35);
-    animation: logo-pulse 3.2s ease-in-out infinite;
-  }
-
-  @keyframes logo-shine {
-    0%,100% { transform: translateX(-120%) translateY(-120%); }
-    50% { transform: translateX(60%) translateY(60%); }
-  }
+  .logo-a::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg,transparent 35%,rgba(255,255,255,.22) 50%,transparent 65%); animation: logo-shine 3.2s ease-in-out infinite; }
+  @keyframes logo-shine { 0%,100%{transform:translateX(-120%) translateY(-120%);} 50%{transform:translateX(60%) translateY(60%);} }
   @keyframes logo-pulse {
-    0%,100% { box-shadow: 0 0 22px rgba(157,0,255,.75), 0 0 45px rgba(157,0,255,.35), inset 0 1px 0 rgba(255,255,255,.3); }
-    50% { box-shadow: 0 0 35px rgba(157,0,255,1), 0 0 70px rgba(157,0,255,.65), 0 0 100px rgba(157,0,255,.3), inset 0 1px 0 rgba(255,255,255,.3); }
+    0%,100%{box-shadow:0 0 22px rgba(157,0,255,.75),0 0 45px rgba(157,0,255,.35),inset 0 1px 0 rgba(255,255,255,.3);}
+    50%{box-shadow:0 0 35px rgba(157,0,255,1),0 0 70px rgba(157,0,255,.65),0 0 100px rgba(157,0,255,.3),inset 0 1px 0 rgba(255,255,255,.3);}
   }
-
-  /* ═══ BUTTONS ═══ */
   .btn-neon {
-    display: inline-block;
-    background: linear-gradient(135deg,#6600cc,#9d00ff,#bf5fff);
-    color: #fff; font-family: 'Orbitron', monospace;
-    letter-spacing: .06em; font-weight: 700;
+    display: inline-block; background: linear-gradient(135deg,#6600cc,#9d00ff,#bf5fff); color: #fff;
+    font-family: 'Orbitron', monospace; letter-spacing: .06em; font-weight: 700;
     border: 1px solid rgba(255,255,255,.12);
     box-shadow: 0 0 22px rgba(157,0,255,.55), 0 0 45px rgba(157,0,255,.28), inset 0 1px 0 rgba(255,255,255,.22);
-    transition: all .3s ease; cursor: pointer;
-    position: relative; overflow: hidden;
+    transition: all .3s ease; cursor: pointer; position: relative; overflow: hidden;
   }
-  .btn-neon::before {
-    content: ''; position: absolute; top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
-    transition: left .45s ease;
-  }
-  .btn-neon:hover::before { left: 100%; }
-  .btn-neon:hover {
-    box-shadow: 0 0 45px rgba(157,0,255,1), 0 0 90px rgba(157,0,255,.55), 0 0 140px rgba(157,0,255,.28), inset 0 1px 0 rgba(255,255,255,.3);
-    transform: translateY(-2px) scale(1.025);
-  }
+  .btn-neon::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent); transition:left .45s ease; }
+  .btn-neon:hover::before { left:100%; }
+  .btn-neon:hover { box-shadow:0 0 45px rgba(157,0,255,1),0 0 90px rgba(157,0,255,.55),0 0 140px rgba(157,0,255,.28),inset 0 1px 0 rgba(255,255,255,.3); transform:translateY(-2px) scale(1.025); }
+  .btn-outline { display:inline-block; background:transparent; border:1px solid rgba(157,0,255,.5); color:#bf5fff; font-family:'Rajdhani',sans-serif; font-weight:600; letter-spacing:.1em; transition:all .3s ease; cursor:pointer; }
+  .btn-outline:hover { background:rgba(157,0,255,.14); border-color:rgba(157,0,255,.9); box-shadow:0 0 22px rgba(157,0,255,.32); color:#fff; }
+  .cube { position:absolute; border-radius:5px; border:1px solid rgba(191,95,255,.55); background:linear-gradient(135deg,rgba(157,0,255,.22) 0%,rgba(191,95,255,.1) 45%,rgba(100,0,180,.32) 100%); backdrop-filter:blur(5px); box-shadow:0 0 12px rgba(157,0,255,.45),inset 0 0 10px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.35); pointer-events:none; }
+  @keyframes f1{0%,100%{transform:translateY(0) rotate(0deg);}30%{transform:translateY(-18px) rotate(6deg);}70%{transform:translateY(-8px) rotate(-4deg);}}
+  @keyframes f2{0%,100%{transform:translateY(0) rotate(0deg);}40%{transform:translateY(-24px) rotate(-7deg);}70%{transform:translateY(-12px) rotate(5deg);}}
+  @keyframes f3{0%,100%{transform:translateY(0) rotate(0deg);}55%{transform:translateY(-20px) rotate(9deg);}}
+  .fa{animation:f1 7s ease-in-out infinite;} .fb{animation:f2 9s ease-in-out infinite;} .fc{animation:f3 11s ease-in-out infinite;}
+  .streak{position:absolute;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(157,0,255,.5),rgba(191,95,255,.9),rgba(157,0,255,.5),transparent);filter:blur(1px);animation:streak-glow 5s ease-in-out infinite;}
+  @keyframes streak-glow{0%,100%{opacity:.3;}50%{opacity:.85;}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+  .fu{animation:fadeUp .85s ease-out both;} .d1{animation-delay:.1s;} .d2{animation-delay:.28s;} .d3{animation-delay:.45s;} .d4{animation-delay:.62s;} .d5{animation-delay:.78s;} .d6{animation-delay:.95s;}
+  .neon-hr{height:1px;border:none;background:linear-gradient(90deg,transparent 0%,rgba(157,0,255,.8) 28%,rgba(191,95,255,1) 50%,rgba(157,0,255,.8) 72%,transparent 100%);box-shadow:0 0 12px rgba(157,0,255,.5);margin:0 auto;max-width:900px;}
+  .price-glow{font-family:'Orbitron',monospace;font-weight:900;background:linear-gradient(135deg,#fff 0%,#e8c0ff 25%,#bf5fff 55%,#9d00ff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 22px rgba(157,0,255,.85));}
+  .icon-wrap{width:52px;height:52px;border-radius:14px;flex-shrink:0;background:linear-gradient(135deg,rgba(157,0,255,.28),rgba(100,0,180,.18));border:1px solid rgba(157,0,255,.38);display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(157,0,255,.14),inset 0 0 14px rgba(157,0,255,.08);}
+  .icon-g{filter:drop-shadow(0 0 7px rgba(157,0,255,.9));color:#bf5fff;}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .price-card{background:rgba(12,0,28,.72);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid rgba(157,0,255,.38);border-radius:26px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04),0 0 80px rgba(157,0,255,.18),0 50px 100px rgba(0,0,0,.65);overflow:hidden;position:relative;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+  .dot{animation:blink 2s ease-in-out infinite;border-radius:50%;display:inline-block;}
+  @media(max-width:640px){.hero-h1{font-size:clamp(2.6rem,14vw,4rem);}}
 
-  .btn-outline {
-    display: inline-block;
-    background: transparent;
-    border: 1px solid rgba(157,0,255,.5); color: #bf5fff;
-    font-family: 'Rajdhani', sans-serif; font-weight: 600; letter-spacing: .1em;
-    transition: all .3s ease; cursor: pointer;
-  }
-  .btn-outline:hover {
-    background: rgba(157,0,255,.14);
-    border-color: rgba(157,0,255,.9);
-    box-shadow: 0 0 22px rgba(157,0,255,.32);
-    color: #fff;
-  }
-
-  /* ═══ CRYSTAL CUBES ═══ */
-  .cube {
-    position: absolute; border-radius: 5px;
-    border: 1px solid rgba(191,95,255,.55);
-    background: linear-gradient(135deg,
-      rgba(157,0,255,.22) 0%, rgba(191,95,255,.1) 45%,
-      rgba(100,0,180,.32) 100%);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 12px rgba(157,0,255,.45), inset 0 0 10px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.35);
-    pointer-events: none;
-  }
-
-  /* ═══ FLOAT ANIMATIONS ═══ */
-  @keyframes f1 {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    30% { transform: translateY(-18px) rotate(6deg); }
-    70% { transform: translateY(-8px) rotate(-4deg); }
-  }
-  @keyframes f2 {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    40% { transform: translateY(-24px) rotate(-7deg); }
-    70% { transform: translateY(-12px) rotate(5deg); }
-  }
-  @keyframes f3 {
-    0%,100% { transform: translateY(0) rotate(0deg); }
-    55% { transform: translateY(-20px) rotate(9deg); }
-  }
-  .fa { animation: f1 7s ease-in-out infinite; }
-  .fb { animation: f2 9s ease-in-out infinite; }
-  .fc { animation: f3 11s ease-in-out infinite; }
-
-  /* ═══ LIGHT STREAK ═══ */
-  .streak {
-    position: absolute; height: 1px; pointer-events: none;
-    background: linear-gradient(90deg,transparent,rgba(157,0,255,.5),rgba(191,95,255,.9),rgba(157,0,255,.5),transparent);
-    filter: blur(1px);
-    animation: streak-glow 5s ease-in-out infinite;
-  }
-  @keyframes streak-glow {
-    0%,100% { opacity: .3; }
-    50% { opacity: .85; }
-  }
-
-  /* ═══ FADE-UP ═══ */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(32px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .fu { animation: fadeUp .85s ease-out both; }
-  .d1 { animation-delay: .1s; }
-  .d2 { animation-delay: .28s; }
-  .d3 { animation-delay: .45s; }
-  .d4 { animation-delay: .62s; }
-  .d5 { animation-delay: .78s; }
-  .d6 { animation-delay: .95s; }
-
-  /* ═══ NEON DIVIDER ═══ */
-  .neon-hr {
-    height: 1px; border: none;
-    background: linear-gradient(90deg,
-      transparent 0%, rgba(157,0,255,.8) 28%,
-      rgba(191,95,255,1) 50%,
-      rgba(157,0,255,.8) 72%, transparent 100%);
-    box-shadow: 0 0 12px rgba(157,0,255,.5);
-    margin: 0 auto; max-width: 900px;
-  }
-
-  /* ═══ PRICE ═══ */
-  .price-glow {
-    font-family: 'Orbitron', monospace; font-weight: 900;
-    background: linear-gradient(135deg,#fff 0%,#e8c0ff 25%,#bf5fff 55%,#9d00ff 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 22px rgba(157,0,255,.85));
-  }
-
-  /* ═══ ICON WRAPPER ═══ */
-  .icon-wrap {
-    width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
-    background: linear-gradient(135deg,rgba(157,0,255,.28),rgba(100,0,180,.18));
-    border: 1px solid rgba(157,0,255,.38);
+  /* ═══ MODAL ═══ */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0, 0, 0, .75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 20px rgba(157,0,255,.14), inset 0 0 14px rgba(157,0,255,.08);
+    padding: 1.5rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s ease;
   }
-  .icon-g { filter: drop-shadow(0 0 7px rgba(157,0,255,.9)); color: #bf5fff; }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
 
-  /* ═══ SCROLL REVEAL (JS target) ═══ */
-  .reveal {
-    opacity: 0; transform: translateY(28px);
-    transition: opacity .7s ease, transform .7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ═══ PRICING CARD ═══ */
-  .price-card {
-    background: rgba(12,0,28,.72);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border: 1px solid rgba(157,0,255,.38);
-    border-radius: 26px;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 0 80px rgba(157,0,255,.18), 0 50px 100px rgba(0,0,0,.65);
-    overflow: hidden;
+  .modal-box {
+    background: rgba(10, 0, 26, .92);
+    border: 1px solid rgba(157,0,255,.45);
+    border-radius: 28px;
+    padding: 2.5rem 2rem;
+    max-width: 460px;
+    width: 100%;
     position: relative;
+    box-shadow: 0 0 80px rgba(157,0,255,.28), 0 40px 80px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.05);
+    transform: translateY(28px) scale(.96);
+    transition: transform .35s cubic-bezier(.25,.46,.45,.94);
   }
+  .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
 
-  /* ═══ STATUS DOT ═══ */
-  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:.3; } }
-  .dot { animation: blink 2s ease-in-out infinite; border-radius: 50%; display: inline-block; }
-
-  /* ═══ RESPONSIVE ═══ */
-  @media (max-width: 640px) {
-    .hero-h1 { font-size: clamp(2.6rem, 14vw, 4rem); }
+  .modal-close {
+    position: absolute; top: 1.1rem; right: 1.1rem;
+    width: 34px; height: 34px; border-radius: 10px;
+    background: rgba(157,0,255,.12); border: 1px solid rgba(157,0,255,.3);
+    color: #bf5fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; transition: all .25s ease; font-family: sans-serif; line-height: 1;
   }
+  .modal-close:hover { background: rgba(157,0,255,.28); border-color: rgba(157,0,255,.7); color: #fff; }
+
+  /* Кнопки способов оплаты */
+  .pay-btn {
+    display: flex; align-items: center; gap: 1rem;
+    width: 100%; padding: 1.1rem 1.4rem;
+    border-radius: 16px; cursor: pointer;
+    border: 1px solid;
+    text-decoration: none;
+    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
+    letter-spacing: .06em;
+    transition: all .3s ease; position: relative; overflow: hidden;
+  }
+  .pay-btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent); transition:left .4s ease; }
+  .pay-btn:hover::before { left:100%; }
+
+  .pay-tg {
+    background: linear-gradient(135deg, rgba(0,136,204,.18), rgba(0,160,240,.08));
+    border-color: rgba(0,160,240,.45); color: #5ec9ff;
+  }
+  .pay-tg:hover { background: linear-gradient(135deg, rgba(0,136,204,.32), rgba(0,160,240,.18)); border-color: rgba(0,160,240,.85); color: #fff; box-shadow: 0 0 28px rgba(0,160,240,.35); transform: translateY(-3px); }
+
+  .pay-fp {
+    background: linear-gradient(135deg, rgba(255,180,0,.14), rgba(255,140,0,.07));
+    border-color: rgba(255,165,0,.4); color: #ffc94d;
+  }
+  .pay-fp:hover { background: linear-gradient(135deg, rgba(255,180,0,.28), rgba(255,140,0,.16)); border-color: rgba(255,165,0,.85); color: #fff; box-shadow: 0 0 28px rgba(255,165,0,.28); transform: translateY(-3px); }
+
+  .pay-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pay-tg .pay-icon { background: rgba(0,160,240,.18); }
+  .pay-fp .pay-icon { background: rgba(255,165,0,.16); }
+  .pay-label { display: flex; flex-direction: column; text-align: left; }
+  .pay-label-main { font-size: 1.05rem; font-weight: 700; line-height: 1.1; }
+  .pay-label-sub { font-size: .75rem; opacity: .6; font-weight: 500; letter-spacing: .04em; margin-top: .15rem; }
+
+  /* Топ-декор модального окна */
+  .modal-top-line { height: 2px; background: linear-gradient(90deg,transparent,#7b00ff,#bf5fff,transparent); border-radius: 28px 28px 0 0; margin: -2.5rem -2rem 2rem; }
 </style>
 </head>
 <body class="bg-grid">
 
-<!-- Scanlines -->
 <div class="scanlines"></div>
-
-<!-- BG Orbs -->
 <div class="orb" style="width:520px;height:520px;background:rgba(80,0,150,.28);top:-80px;left:-140px;"></div>
 <div class="orb" style="width:420px;height:420px;background:rgba(100,0,200,.2);top:38%;right:-100px;"></div>
 <div class="orb" style="width:320px;height:320px;background:rgba(60,0,120,.25);bottom:10%;left:22%;"></div>
 
-<!-- ━━━━━━━━━━━━━━━━━━━ HEADER ━━━━━━━━━━━━━━━━━━━ -->
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="buyModal">
+  <div class="modal-box">
+    <div class="modal-top-line"></div>
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+
+    <div style="text-align:center;margin-bottom:1.75rem;">
+      <div style="display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,rgba(157,0,255,.3),rgba(100,0,180,.2));border:1px solid rgba(157,0,255,.4);margin-bottom:1rem;box-shadow:0 0 24px rgba(157,0,255,.22);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#bf5fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h2 class="font-orb" style="font-size:1.1rem;font-weight:900;letter-spacing:.08em;color:#fff;margin-bottom:.4rem;">ВЫБРАТЬ СПОСОБ ОПЛАТЫ</h2>
+      <p style="color:#6b5a80;font-size:.82rem;letter-spacing:.04em;">Выберите удобную платформу для покупки</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:.85rem;">
+
+      <!-- Telegram -->
+      <a href="https://t.me/d0z3_nyashka" target="_blank" class="pay-btn pay-tg">
+        <div class="pay-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#5ec9ff">
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/>
+          </svg>
+        </div>
+        <div class="pay-label">
+          <span class="pay-label-main">Купить в Telegram</span>
+          <span class="pay-label-sub">@d0z3_nyashka · Быстро и удобно</span>
+        </div>
+        <svg style="margin-left:auto;opacity:.5;flex-shrink:0;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+      <!-- FunPay -->
+      <a href="https://funpay.com/users/19929720/" target="_blank" class="pay-btn pay-fp">
+        <div class="pay-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffc94d">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+          </svg>
+        </div>
+        <div class="pay-label">
+          <span class="pay-label-main">Купить на FunPay</span>
+          <span class="pay-label-sub">Безопасная сделка · Защита покупателя</span>
+        </div>
+        <svg style="margin-left:auto;opacity:.5;flex-shrink:0;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+    </div>
+
+    <p style="text-align:center;color:#2e1e3e;font-size:.7rem;letter-spacing:.06em;margin-top:1.4rem;font-family:'Orbitron',monospace;">
+      AURELIAN RECODE · БЕЗОПАСНАЯ ПОКУПКА
+    </p>
+  </div>
+</div>
+
+<!-- ═══ HEADER ═══ -->
 <header class="glass-nav fixed top-0 left-0 right-0 z-50">
   <div class="max-w-6xl mx-auto px-5 py-3.5 flex items-center justify-between">
-
-    <!-- Logo -->
     <a href="#" class="flex items-center gap-3 group" style="text-decoration:none;">
-      <!-- ✅ Замените div ниже на <img src="1000037471.jpg" class="logo-img" alt="Aurelian"> -->
       <div class="logo-a">A</div>
-      <span class="font-orb font-bold text-sm tracking-widest text-gray-300 group-hover:text-purple-300 transition-colors hidden sm:block">
-        AURELIAN
-      </span>
+      <span class="font-orb font-bold text-sm tracking-widest text-gray-300 group-hover:text-purple-300 transition-colors hidden sm:block">AURELIAN</span>
     </a>
-
-    <!-- Nav -->
     <nav class="flex items-center gap-3">
       <a href="https://discord.gg/EZVhBjxVT" target="_blank" class="btn-outline flex items-center gap-2 px-4 py-2 rounded-lg text-sm" style="text-decoration:none;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
           <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.082.114 18.105.132 18.12a19.85 19.85 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 13.84 13.84 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
         </svg>
         Discord
       </a>
-      <a href="#contact" class="text-gray-400 hover:text-purple-300 transition-colors text-sm font-semibold tracking-wider px-2 py-2 font-orb" style="text-decoration:none;">
-        Контакты
-      </a>
+      <a href="#contact" class="text-gray-400 hover:text-purple-300 transition-colors text-sm font-semibold tracking-wider px-2 py-2 font-orb" style="text-decoration:none;">Контакты</a>
     </nav>
   </div>
 </header>
 
-
-<!-- ━━━━━━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━━━━━━━ -->
+<!-- ═══ HERO ═══ -->
 <section style="position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:7rem 1.5rem 5rem;overflow:hidden;">
-
-  <!-- Crystal cubes -->
   <div class="cube fa" style="width:40px;height:40px;top:17%;left:7%;opacity:.7;"></div>
   <div class="cube fb" style="width:24px;height:24px;top:26%;left:17%;opacity:.5;animation-delay:1.5s;"></div>
   <div class="cube fc" style="width:34px;height:34px;top:20%;right:9%;opacity:.65;animation-delay:.8s;"></div>
@@ -344,47 +244,25 @@
   <div class="cube fc" style="width:18px;height:18px;bottom:24%;right:14%;opacity:.4;animation-delay:1.1s;"></div>
   <div class="cube fa" style="width:26px;height:26px;bottom:40%;left:28%;opacity:.32;animation-delay:4s;"></div>
   <div class="cube fb" style="width:16px;height:16px;bottom:18%;right:32%;opacity:.35;animation-delay:2s;"></div>
-
-  <!-- Light streaks -->
   <div class="streak" style="top:48%;left:15%;width:55%;transform:rotate(-7deg);"></div>
   <div class="streak" style="top:52%;left:25%;width:40%;transform:rotate(3deg);opacity:.4;animation-delay:2.5s;"></div>
 
   <div style="position:relative;z-index:10;max-width:960px;margin:0 auto;text-align:center;width:100%;">
-
-    <!-- Version badge -->
     <div class="glass-card fu d1 inline-flex items-center gap-2 px-5 py-2 rounded-full mb-8" style="display:inline-flex;">
       <span class="dot" style="width:8px;height:8px;background:#bf5fff;"></span>
       <span class="font-orb text-purple-300 uppercase" style="font-size:.68rem;letter-spacing:.2em;">Minecraft 1.21.4</span>
       <span class="dot" style="width:8px;height:8px;background:#bf5fff;animation-delay:.6s;"></span>
     </div>
-
-    <!-- Main title -->
-    <h1 class="glass-title hero-h1 fu d2"
-      style="font-size:clamp(3rem,10vw,7.5rem);line-height:1;letter-spacing:-.02em;margin-bottom:.15em;">
-      AURELIAN
-    </h1>
-    <h1 class="glass-title hero-h1 fu d3"
-      style="font-size:clamp(3rem,10vw,7.5rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:1.5rem;">
-      RECODE
-    </h1>
-
-    <!-- Subtitle -->
+    <h1 class="glass-title hero-h1 fu d2" style="font-size:clamp(3rem,10vw,7.5rem);line-height:1;letter-spacing:-.02em;margin-bottom:.15em;">AURELIAN</h1>
+    <h1 class="glass-title hero-h1 fu d3" style="font-size:clamp(3rem,10vw,7.5rem);line-height:1.05;letter-spacing:-.02em;margin-bottom:1.5rem;">RECODE</h1>
     <p class="fu d4" style="color:#c4b3d6;font-size:clamp(1rem,2.2vw,1.2rem);letter-spacing:.05em;max-width:480px;margin:0 auto 2.5rem;line-height:1.7;">
       Глобальное обновление под версию<br>
       <span style="color:#bf5fff;filter:drop-shadow(0 0 7px rgba(157,0,255,.8));font-weight:700;">Minecraft 1.21.4</span>
     </p>
-
-    <!-- CTA buttons -->
     <div class="fu d5" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;">
-      <a href="#pricing" class="btn-neon" style="padding:.95rem 2.5rem;border-radius:14px;font-size:1rem;text-decoration:none;">
-        Купить сейчас
-      </a>
-      <a href="#features" class="btn-outline" style="padding:.95rem 2rem;border-radius:14px;font-size:1rem;text-decoration:none;">
-        Узнать больше →
-      </a>
+      <button onclick="openModal()" class="btn-neon" style="padding:.95rem 2.5rem;border-radius:14px;font-size:1rem;border:none;">Купить сейчас</button>
+      <a href="#features" class="btn-outline" style="padding:.95rem 2rem;border-radius:14px;font-size:1rem;text-decoration:none;">Узнать больше →</a>
     </div>
-
-    <!-- Stats row -->
     <div class="fu d6" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:3.5rem;">
       <div class="glass-card" style="padding:.75rem 1.5rem;border-radius:14px;display:flex;align-items:center;gap:.75rem;">
         <span class="price-glow" style="font-size:1.6rem;">190₽</span>
@@ -399,379 +277,210 @@
         <span style="color:#888;font-size:.78rem;line-height:1.4;">Поддержка<br>онлайн</span>
       </div>
     </div>
-
   </div>
 </section>
 
 <hr class="neon-hr">
 
-
-<!-- ━━━━━━━━━━━━━━━━━━━ FEATURES ━━━━━━━━━━━━━━━━━━━ -->
+<!-- ═══ FEATURES ═══ -->
 <section id="features" style="position:relative;padding:7rem 1.5rem;z-index:1;">
   <div style="max-width:1100px;margin:0 auto;">
-
-    <!-- Section header -->
     <div style="text-align:center;margin-bottom:4rem;">
-      <span class="font-orb" style="font-size:.68rem;letter-spacing:.22em;color:#9d00ff;text-transform:uppercase;display:block;margin-bottom:.75rem;">
-        ✦ Возможности ✦
-      </span>
+      <span class="font-orb" style="font-size:.68rem;letter-spacing:.22em;color:#9d00ff;text-transform:uppercase;display:block;margin-bottom:.75rem;">✦ Возможности ✦</span>
       <h2 class="glass-title" style="font-size:clamp(2rem,5vw,3.5rem);">ПРЕИМУЩЕСТВА</h2>
     </div>
-
-    <!-- Grid -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem;">
-
-      <!-- Card 1: Bypass -->
       <div class="glass-card reveal" style="border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;">
         <div style="position:absolute;top:0;right:0;width:90px;height:90px;background:radial-gradient(circle,rgba(157,0,255,.22),transparent);filter:blur(18px);"></div>
-        <div class="icon-wrap" style="margin-bottom:1.25rem;">
-          <svg class="icon-g" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </div>
+        <div class="icon-wrap" style="margin-bottom:1.25rem;"><svg class="icon-g" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3 class="font-orb" style="font-size:.8rem;font-weight:700;color:#fff;letter-spacing:.12em;margin-bottom:.6rem;">BYPASS</h3>
         <p style="color:#8a7a9e;font-size:.9rem;line-height:1.65;">Превосходный обход античит-систем. Незаметная работа на любых серверах без единого бана.</p>
-        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:.5rem;">
-          <span class="dot" style="width:7px;height:7px;background:#4ade80;"></span>
-          <span style="color:#4ade80;font-size:.7rem;font-weight:700;letter-spacing:.12em;font-family:'Orbitron',monospace;">АКТИВНО</span>
-        </div>
+        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:.5rem;"><span class="dot" style="width:7px;height:7px;background:#4ade80;"></span><span style="color:#4ade80;font-size:.7rem;font-weight:700;letter-spacing:.12em;font-family:'Orbitron',monospace;">АКТИВНО</span></div>
       </div>
-
-      <!-- Card 2: FPS Boost -->
       <div class="glass-card reveal" style="border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;animation-delay:.12s;">
         <div style="position:absolute;top:0;right:0;width:90px;height:90px;background:radial-gradient(circle,rgba(157,0,255,.22),transparent);filter:blur(18px);"></div>
-        <div class="icon-wrap" style="margin-bottom:1.25rem;">
-          <svg class="icon-g" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-          </svg>
-        </div>
+        <div class="icon-wrap" style="margin-bottom:1.25rem;"><svg class="icon-g" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <h3 class="font-orb" style="font-size:.8rem;font-weight:700;color:#fff;letter-spacing:.12em;margin-bottom:.6rem;">FPS BOOST</h3>
         <p style="color:#8a7a9e;font-size:.9rem;line-height:1.65;">Идеальная оптимизация производительности. Максимальный FPS на любом железе без лагов.</p>
-        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:.5rem;">
-          <span class="dot" style="width:7px;height:7px;background:#bf5fff;animation-delay:.4s;"></span>
-          <span style="color:#bf5fff;font-size:.7rem;font-weight:700;letter-spacing:.12em;font-family:'Orbitron',monospace;">ХОРОШАЯ ОПТИМИЗАЦИЯ</span>
-        </div>
+        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:.5rem;"><span class="dot" style="width:7px;height:7px;background:#bf5fff;animation-delay:.4s;"></span><span style="color:#bf5fff;font-size:.7rem;font-weight:700;letter-spacing:.12em;font-family:'Orbitron',monospace;">ХОРОШАЯ ОПТИМИЗАЦИЯ</span></div>
       </div>
-
-      <!-- Card 3: 3D Interface -->
       <div class="glass-card reveal" style="border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;animation-delay:.24s;">
         <div style="position:absolute;top:0;right:0;width:90px;height:90px;background:radial-gradient(circle,rgba(157,0,255,.22),transparent);filter:blur(18px);"></div>
-        <div class="icon-wrap" style="margin-bottom:1.25rem;">
-          <svg class="icon-g" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-            <polyline points="2 17 12 22 22 17"/>
-            <polyline points="2 12 12 17 22 12"/>
-          </svg>
-        </div>
+        <div class="icon-wrap" style="margin-bottom:1.25rem;"><svg class="icon-g" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
         <h3 class="font-orb" style="font-size:.8rem;font-weight:700;color:#fff;letter-spacing:.12em;margin-bottom:.6rem;">3D ИНТЕРФЕЙС</h3>
         <p style="color:#8a7a9e;font-size:.9rem;line-height:1.65;">Визуальный объёмный GUI с glassmorphism, анимациями и прозрачными элементами управления.</p>
-        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:.5rem;">
-          <span class="dot" style="width:7px;height:7px;background:#60a5fa;animation-delay:.8s;"></span>
-          <span style="color:#60a5fa;font-size:.7rem;font-weight:700;letter-spacing:.12em;font-family:'Orbitron',monospace;">GLASSMORPHISM</span>
-        </div>
+        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:.5rem;"><span class="dot" style="width:7px;height:7px;background:#60a5fa;animation-delay:.8s;"></span><span style="color:#60a5fa;font-size:.7rem;font-weight:700;letter-spacing:.12em;font-family:'Orbitron',monospace;">GLASSMORPHISM</span></div>
       </div>
-
-      <!-- Card 4: Custom Settings -->
       <div class="glass-card reveal" style="border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;animation-delay:.36s;">
         <div style="position:absolute;top:0;right:0;width:90px;height:90px;background:radial-gradient(circle,rgba(157,0,255,.22),transparent);filter:blur(18px);"></div>
-        <div class="icon-wrap" style="margin-bottom:1.25rem;">
-          <svg class="icon-g" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-          </svg>
-        </div>
+        <div class="icon-wrap" style="margin-bottom:1.25rem;"><svg class="icon-g" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
         <h3 class="font-orb" style="font-size:.8rem;font-weight:700;color:#fff;letter-spacing:.12em;margin-bottom:.6rem;">НАСТРОЙКИ</h3>
         <p style="color:#8a7a9e;font-size:.9rem;line-height:1.65;">Гибкие кастомные настройки каждого модуля. Тонкая подстройка поведения под ваш стиль игры.</p>
-        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:.5rem;">
-          <span class="dot" style="width:7px;height:7px;background:#f472b6;animation-delay:1.2s;"></span>
-          <span style="color:#f472b6;font-size:.7rem;font-weight:700;letter-spacing:.12em;font-family:'Orbitron',monospace;">ПОЛНАЯ СВОБОДА</span>
-        </div>
+        <div style="margin-top:1.1rem;display:flex;align-items:center;gap:.5rem;"><span class="dot" style="width:7px;height:7px;background:#f472b6;animation-delay:1.2s;"></span><span style="color:#f472b6;font-size:.7rem;font-weight:700;letter-spacing:.12em;font-family:'Orbitron',monospace;">ПОЛНАЯ СВОБОДА</span></div>
       </div>
-
     </div>
   </div>
 </section>
 
 <hr class="neon-hr">
 
-
-<!-- ━━━━━━━━━━━━━━━━━━━ PRICING ━━━━━━━━━━━━━━━━━━━ -->
+<!-- ═══ PRICING ═══ -->
 <section id="pricing" style="position:relative;padding:7rem 1.5rem;z-index:1;">
   <div style="max-width:1100px;margin:0 auto;">
-
     <div style="text-align:center;margin-bottom:3.5rem;">
-      <span class="font-orb" style="font-size:.68rem;letter-spacing:.22em;color:#9d00ff;text-transform:uppercase;display:block;margin-bottom:.75rem;">
-        ✦ Стоимость ✦
-      </span>
+      <span class="font-orb" style="font-size:.68rem;letter-spacing:.22em;color:#9d00ff;text-transform:uppercase;display:block;margin-bottom:.75rem;">✦ Стоимость ✦</span>
       <h2 class="glass-title" style="font-size:clamp(2rem,5vw,3.5rem);">КУПИТЬ</h2>
-      <p style="color:#6b5a80;font-size:.9rem;margin-top:.85rem;letter-spacing:.05em;">
-        Выберите подходящий план — оплата через Telegram <span style="color:#9d00ff;">@d0z3_nyashka</span>
-      </p>
+      <p style="color:#6b5a80;font-size:.9rem;margin-top:.85rem;letter-spacing:.05em;">Выберите подходящий план — оплата через <span style="color:#9d00ff;">Telegram</span> или <span style="color:#9d00ff;">FunPay</span></p>
     </div>
-
-    <!-- 4-card grid -->
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;align-items:stretch;">
 
-      <!-- ── 15 ДНЕЙ ── -->
+      <!-- 15 дней -->
       <div class="price-card reveal" style="display:flex;flex-direction:column;">
         <div style="height:2px;background:linear-gradient(90deg,transparent,#7b00ff,#bf5fff,transparent);"></div>
         <div style="position:relative;padding:2rem 1.75rem;display:flex;flex-direction:column;flex:1;">
           <div style="position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(157,0,255,.14),transparent);filter:blur(20px);pointer-events:none;"></div>
-
-          <!-- Period -->
-          <div style="margin-bottom:1.5rem;">
-            <div class="font-orb" style="font-size:.65rem;letter-spacing:.2em;color:#6b5a80;margin-bottom:.4rem;">ПОДПИСКА</div>
-            <div class="font-orb" style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1;">15</div>
-            <div class="font-orb" style="font-size:.75rem;font-weight:700;letter-spacing:.18em;color:#bf5fff;">ДНЕЙ</div>
-          </div>
-
-          <!-- Price -->
-          <div style="margin-bottom:1.75rem;">
-            <span class="price-glow" style="font-size:3rem;line-height:1;">190</span>
-            <span class="font-orb" style="color:#6b5a80;font-size:.85rem;margin-left:.3rem;">₽</span>
-          </div>
-
-          <!-- Features -->
+          <div style="margin-bottom:1.5rem;"><div class="font-orb" style="font-size:.65rem;letter-spacing:.2em;color:#6b5a80;margin-bottom:.4rem;">ПОДПИСКА</div><div class="font-orb" style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1;">15</div><div class="font-orb" style="font-size:.75rem;font-weight:700;letter-spacing:.18em;color:#bf5fff;">ДНЕЙ</div></div>
+          <div style="margin-bottom:1.75rem;"><span class="price-glow" style="font-size:3rem;line-height:1;">190</span><span class="font-orb" style="color:#6b5a80;font-size:.85rem;margin-left:.3rem;">₽</span></div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem;flex:1;">
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Полный доступ к клиенту
-            </li>
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены
-            </li>
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord
-            </li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Полный доступ к клиенту</li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены</li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord</li>
           </ul>
-
-          <a href="https://t.me/d0z3_nyashka" target="_blank" class="btn-outline"
-             style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;text-decoration:none;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;">
-            КУПИТЬ
-          </a>
+          <button onclick="openModal()" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;">КУПИТЬ</button>
         </div>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(157,0,255,.4),transparent);"></div>
       </div>
 
-      <!-- ── 30 ДНЕЙ ── -->
+      <!-- 30 дней -->
       <div class="price-card reveal" style="display:flex;flex-direction:column;animation-delay:.1s;">
         <div style="height:2px;background:linear-gradient(90deg,transparent,#7b00ff,#bf5fff,transparent);"></div>
         <div style="position:relative;padding:2rem 1.75rem;display:flex;flex-direction:column;flex:1;">
           <div style="position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(157,0,255,.14),transparent);filter:blur(20px);pointer-events:none;"></div>
-
-          <div style="margin-bottom:1.5rem;">
-            <div class="font-orb" style="font-size:.65rem;letter-spacing:.2em;color:#6b5a80;margin-bottom:.4rem;">ПОДПИСКА</div>
-            <div class="font-orb" style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1;">30</div>
-            <div class="font-orb" style="font-size:.75rem;font-weight:700;letter-spacing:.18em;color:#bf5fff;">ДНЕЙ</div>
-          </div>
-
-          <div style="margin-bottom:1.75rem;">
-            <span class="price-glow" style="font-size:3rem;line-height:1;">290</span>
-            <span class="font-orb" style="color:#6b5a80;font-size:.85rem;margin-left:.3rem;">₽</span>
-          </div>
-
+          <div style="margin-bottom:1.5rem;"><div class="font-orb" style="font-size:.65rem;letter-spacing:.2em;color:#6b5a80;margin-bottom:.4rem;">ПОДПИСКА</div><div class="font-orb" style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1;">30</div><div class="font-orb" style="font-size:.75rem;font-weight:700;letter-spacing:.18em;color:#bf5fff;">ДНЕЙ</div></div>
+          <div style="margin-bottom:1.75rem;"><span class="price-glow" style="font-size:3rem;line-height:1;">290</span><span class="font-orb" style="color:#6b5a80;font-size:.85rem;margin-left:.3rem;">₽</span></div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem;flex:1;">
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Полный доступ к клиенту
-            </li>
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены
-            </li>
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord
-            </li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Полный доступ к клиенту</li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены</li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord</li>
           </ul>
-
-          <a href="https://t.me/d0z3_nyashka" target="_blank" class="btn-outline"
-             style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;text-decoration:none;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;">
-            КУПИТЬ
-          </a>
+          <button onclick="openModal()" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;">КУПИТЬ</button>
         </div>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(157,0,255,.4),transparent);"></div>
       </div>
 
-      <!-- ── 365 ДНЕЙ ── -->
+      <!-- 365 дней -->
       <div class="price-card reveal" style="display:flex;flex-direction:column;animation-delay:.2s;">
         <div style="height:2px;background:linear-gradient(90deg,transparent,#7b00ff,#bf5fff,transparent);"></div>
         <div style="position:relative;padding:2rem 1.75rem;display:flex;flex-direction:column;flex:1;">
           <div style="position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(157,0,255,.14),transparent);filter:blur(20px);pointer-events:none;"></div>
-
-          <div style="margin-bottom:1.5rem;">
-            <div class="font-orb" style="font-size:.65rem;letter-spacing:.2em;color:#6b5a80;margin-bottom:.4rem;">ПОДПИСКА</div>
-            <div class="font-orb" style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1;">365</div>
-            <div class="font-orb" style="font-size:.75rem;font-weight:700;letter-spacing:.18em;color:#bf5fff;">ДНЕЙ</div>
-          </div>
-
-          <div style="margin-bottom:1.75rem;">
-            <span class="price-glow" style="font-size:3rem;line-height:1;">450</span>
-            <span class="font-orb" style="color:#6b5a80;font-size:.85rem;margin-left:.3rem;">₽</span>
-          </div>
-
+          <div style="margin-bottom:1.5rem;"><div class="font-orb" style="font-size:.65rem;letter-spacing:.2em;color:#6b5a80;margin-bottom:.4rem;">ПОДПИСКА</div><div class="font-orb" style="font-size:1.6rem;font-weight:900;color:#fff;line-height:1;">365</div><div class="font-orb" style="font-size:.75rem;font-weight:700;letter-spacing:.18em;color:#bf5fff;">ДНЕЙ</div></div>
+          <div style="margin-bottom:1.75rem;"><span class="price-glow" style="font-size:3rem;line-height:1;">450</span><span class="font-orb" style="color:#6b5a80;font-size:.85rem;margin-left:.3rem;">₽</span></div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem;flex:1;">
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Полный доступ к клиенту
-            </li>
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены
-            </li>
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord
-            </li>
-            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Приоритетная поддержка
-            </li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Полный доступ к клиенту</li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены</li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord</li>
+            <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Приоритетная поддержка</li>
           </ul>
-
-          <a href="https://t.me/d0z3_nyashka" target="_blank" class="btn-outline"
-             style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;text-decoration:none;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;">
-            КУПИТЬ
-          </a>
+          <button onclick="openModal()" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;">КУПИТЬ</button>
         </div>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(157,0,255,.4),transparent);"></div>
       </div>
 
-      <!-- ── НАВСЕГДА — highlighted ── -->
-      <div class="reveal" style="
-        display:flex;flex-direction:column;
-        background:rgba(20,0,45,.8);
-        backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
-        border:1px solid rgba(157,0,255,.65);
-        border-radius:26px;overflow:hidden;position:relative;
-        box-shadow:0 0 0 1px rgba(255,255,255,.05) inset,0 0 60px rgba(157,0,255,.28),0 30px 70px rgba(0,0,0,.65);
-        animation-delay:.3s;
-      ">
-        <!-- Hot badge -->
-        <div style="
-          position:absolute;top:1.1rem;right:1.1rem;z-index:2;
-          background:linear-gradient(135deg,#6600cc,#9d00ff);
-          color:#fff;font-family:'Orbitron',monospace;font-size:.55rem;font-weight:700;
-          letter-spacing:.14em;padding:.3rem .75rem;border-radius:100px;
-          box-shadow:0 0 14px rgba(157,0,255,.7);
-        ">ЛУЧШИЙ ВЫБОР</div>
-
+      <!-- Навсегда -->
+      <div class="reveal" style="display:flex;flex-direction:column;background:rgba(20,0,45,.8);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid rgba(157,0,255,.65);border-radius:26px;overflow:hidden;position:relative;box-shadow:0 0 0 1px rgba(255,255,255,.05) inset,0 0 60px rgba(157,0,255,.28),0 30px 70px rgba(0,0,0,.65);animation-delay:.3s;">
+        <div style="position:absolute;top:1.1rem;right:1.1rem;z-index:2;background:linear-gradient(135deg,#6600cc,#9d00ff);color:#fff;font-family:'Orbitron',monospace;font-size:.55rem;font-weight:700;letter-spacing:.14em;padding:.3rem .75rem;border-radius:100px;box-shadow:0 0 14px rgba(157,0,255,.7);">ЛУЧШИЙ ВЫБОР</div>
         <div style="height:2px;background:linear-gradient(90deg,transparent,#9d00ff,#bf5fff,#9d00ff,transparent);box-shadow:0 0 8px rgba(157,0,255,.6);"></div>
-
-        <!-- Interior orb -->
         <div style="position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:250px;height:200px;background:radial-gradient(ellipse,rgba(157,0,255,.2),transparent 70%);pointer-events:none;"></div>
-
-        <!-- Cubes -->
         <div class="cube fa" style="width:16px;height:16px;top:14%;right:16%;opacity:.5;"></div>
         <div class="cube fb" style="width:10px;height:10px;bottom:22%;left:8%;opacity:.4;animation-delay:2s;"></div>
-
         <div style="position:relative;padding:2rem 1.75rem;display:flex;flex-direction:column;flex:1;">
-
-          <div style="margin-bottom:1.5rem;">
-            <div class="font-orb" style="font-size:.65rem;letter-spacing:.2em;color:#9d00ff;margin-bottom:.4rem;">ЛИЦЕНЗИЯ</div>
-            <div class="font-orb" style="font-size:1.35rem;font-weight:900;color:#fff;line-height:1.1;letter-spacing:.04em;">НА-<br>ВСЕГДА</div>
-          </div>
-
-          <div style="margin-bottom:1.75rem;">
-            <span class="price-glow" style="font-size:3rem;line-height:1;">550</span>
-            <span class="font-orb" style="color:#6b5a80;font-size:.85rem;margin-left:.3rem;">₽</span>
-          </div>
-
+          <div style="margin-bottom:1.5rem;"><div class="font-orb" style="font-size:.65rem;letter-spacing:.2em;color:#9d00ff;margin-bottom:.4rem;">ЛИЦЕНЗИЯ</div><div class="font-orb" style="font-size:1.35rem;font-weight:900;color:#fff;line-height:1.1;letter-spacing:.04em;">НА-<br>ВСЕГДА</div></div>
+          <div style="margin-bottom:1.75rem;"><span class="price-glow" style="font-size:3rem;line-height:1;">550</span><span class="font-orb" style="color:#6b5a80;font-size:.85rem;margin-left:.3rem;">₽</span></div>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem;flex:1;">
-            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Доступ навсегда без продления
-            </li>
-            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Все будущие обновления
-            </li>
-            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены
-            </li>
-            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Приоритетная поддержка 24/7
-            </li>
-            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;">
-              <span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Уникальный лицензионный ключ
-            </li>
+            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Доступ навсегда без продления</li>
+            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Все будущие обновления</li>
+            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены</li>
+            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Приоритетная поддержка 24/7</li>
+            <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Уникальный лицензионный ключ</li>
           </ul>
-
-          <a href="https://t.me/d0z3_nyashka" target="_blank" class="btn-neon"
-             style="display:block;text-align:center;padding:.95rem;border-radius:12px;font-size:.85rem;text-decoration:none;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;">
-            КУПИТЬ НАВСЕГДА
-          </a>
+          <button onclick="openModal()" class="btn-neon" style="display:block;text-align:center;padding:.95rem;border-radius:12px;font-size:.85rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;border:none;">КУПИТЬ НАВСЕГДА</button>
         </div>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(157,0,255,.65),transparent);"></div>
       </div>
-
-    </div><!-- /grid -->
+    </div>
 
     <p style="text-align:center;color:#3a2a4a;font-size:.72rem;letter-spacing:.06em;margin-top:2rem;">
-      Оплата через Telegram — <span style="color:#6b4a8a;">@d0z3_nyashka</span>
+      Оплата через Telegram — <span style="color:#6b4a8a;">@d0z3_nyashka</span> · или на <span style="color:#6b4a8a;">FunPay</span>
     </p>
-
   </div>
 </section>
 
 <hr class="neon-hr">
 
-
-<!-- ━━━━━━━━━━━━━━━━━━━ FOOTER ━━━━━━━━━━━━━━━━━━━ -->
+<!-- ═══ FOOTER ═══ -->
 <footer id="contact" style="position:relative;padding:3.5rem 1.5rem 2.5rem;z-index:1;">
   <div style="max-width:1100px;margin:0 auto;">
-
     <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem;">
-
-      <!-- Logo block -->
       <div style="display:flex;align-items:center;gap:.85rem;">
         <div class="logo-a" style="width:38px;height:38px;font-size:1.1rem;border-radius:10px;">A</div>
-        <div>
-          <div class="font-orb" style="font-size:.8rem;font-weight:700;letter-spacing:.14em;color:#fff;">AURELIAN RECODE</div>
-          <div style="color:#3a2a4a;font-size:.7rem;margin-top:.15rem;">© 2024 Все права защищены</div>
-        </div>
+        <div><div class="font-orb" style="font-size:.8rem;font-weight:700;letter-spacing:.14em;color:#fff;">AURELIAN RECODE</div><div style="color:#3a2a4a;font-size:.7rem;margin-top:.15rem;">© 2024 Все права защищены</div></div>
       </div>
-
-      <!-- Social links -->
       <div style="display:flex;align-items:center;gap:.85rem;">
         <a href="https://t.me/AurelianClient" target="_blank" class="btn-outline" style="display:flex;align-items:center;gap:.55rem;padding:.65rem 1.25rem;border-radius:12px;font-size:.85rem;text-decoration:none;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/>
-          </svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
           Telegram
         </a>
         <a href="https://discord.gg/EZVhBjxVT" target="_blank" class="btn-outline" style="display:flex;align-items:center;gap:.55rem;padding:.65rem 1.25rem;border-radius:12px;font-size:.85rem;text-decoration:none;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.082.114 18.105.132 18.12a19.85 19.85 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 13.84 13.84 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
-          </svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.082.114 18.105.132 18.12a19.85 19.85 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 13.84 13.84 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
           Discord
         </a>
+        <a href="https://funpay.com/users/19929720/" target="_blank" class="btn-outline" style="display:flex;align-items:center;gap:.55rem;padding:.65rem 1.25rem;border-radius:12px;font-size:.85rem;text-decoration:none;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          FunPay
+        </a>
       </div>
-
-      <!-- Version tag -->
-      <div style="text-align:right;">
-        <div class="font-orb" style="font-size:.62rem;letter-spacing:.18em;color:#6b5a80;text-transform:uppercase;">Версия</div>
-        <div class="font-orb" style="font-size:.82rem;font-weight:700;color:#fff;letter-spacing:.1em;">1.21.4 RECODE</div>
-      </div>
-
+      <div style="text-align:right;"><div class="font-orb" style="font-size:.62rem;letter-spacing:.18em;color:#6b5a80;text-transform:uppercase;">Версия</div><div class="font-orb" style="font-size:.82rem;font-weight:700;color:#fff;letter-spacing:.1em;">1.21.4 RECODE</div></div>
     </div>
-
     <hr class="neon-hr" style="margin:2rem 0 1.5rem;">
-
-    <p style="text-align:center;color:#2e1e3e;font-size:.72rem;letter-spacing:.1em;font-family:'Orbitron',monospace;">
-      AURELIAN RECODE — ПРИВАТНЫЙ КЛИЕНТ ДЛЯ MINECRAFT 1.21.4
-    </p>
-
+    <p style="text-align:center;color:#2e1e3e;font-size:.72rem;letter-spacing:.1em;font-family:'Orbitron',monospace;">AURELIAN RECODE — ПРИВАТНЫЙ КЛИЕНТ ДЛЯ MINECRAFT 1.21.4</p>
   </div>
 </footer>
 
-
-<!-- ━━━━━━━━━━━━━━━━━━━ SCRIPTS ━━━━━━━━━━━━━━━━━━━ -->
 <script>
-  // ── Scroll reveal (per-section stagger) ──
-  const io = new IntersectionObserver(function(entries) {
+  // ── Modal ──
+  var modal = document.getElementById('buyModal');
+
+  function openModal() {
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+
+  // Закрытие по клику на оверлей (но не на сам бокс)
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+
+  // Закрытие по Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ── Scroll reveal ──
+  var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
     });
   }, { threshold: 0.08 });
 
   document.querySelectorAll('.reveal').forEach(function(el) {
-    var siblings = el.parentElement
-      ? Array.from(el.parentElement.querySelectorAll('.reveal'))
-      : [el];
+    var siblings = el.parentElement ? Array.from(el.parentElement.querySelectorAll('.reveal')) : [el];
     var idx = siblings.indexOf(el);
     el.style.transitionDelay = (idx * 0.1) + 's';
     io.observe(el);
@@ -790,11 +499,8 @@
   // ── Header shadow on scroll ──
   var hdr = document.querySelector('header');
   window.addEventListener('scroll', function() {
-    hdr.style.boxShadow = window.scrollY > 30
-      ? '0 0 40px rgba(157,0,255,.14)'
-      : 'none';
+    hdr.style.boxShadow = window.scrollY > 30 ? '0 0 40px rgba(157,0,255,.14)' : 'none';
   }, { passive: true });
 </script>
-
 </body>
 </html>
