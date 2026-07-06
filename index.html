@@ -82,78 +82,6 @@
   @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
   .dot{animation:blink 2s ease-in-out infinite;border-radius:50%;display:inline-block;}
   @media(max-width:640px){.hero-h1{font-size:clamp(2.6rem,14vw,4rem);}}
-
-  /* ═══ MODAL ═══ */
-  .modal-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    background: rgba(0, 0, 0, .75);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    display: flex; align-items: center; justify-content: center;
-    padding: 1.5rem;
-    opacity: 0; pointer-events: none;
-    transition: opacity .35s ease;
-  }
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-
-  .modal-box {
-    background: rgba(10, 0, 26, .92);
-    border: 1px solid rgba(157,0,255,.45);
-    border-radius: 28px;
-    padding: 2.5rem 2rem;
-    max-width: 460px;
-    width: 100%;
-    position: relative;
-    box-shadow: 0 0 80px rgba(157,0,255,.28), 0 40px 80px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.05);
-    transform: translateY(28px) scale(.96);
-    transition: transform .35s cubic-bezier(.25,.46,.45,.94);
-  }
-  .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
-
-  .modal-close {
-    position: absolute; top: 1.1rem; right: 1.1rem;
-    width: 34px; height: 34px; border-radius: 10px;
-    background: rgba(157,0,255,.12); border: 1px solid rgba(157,0,255,.3);
-    color: #bf5fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; transition: all .25s ease; font-family: sans-serif; line-height: 1;
-  }
-  .modal-close:hover { background: rgba(157,0,255,.28); border-color: rgba(157,0,255,.7); color: #fff; }
-
-  /* Кнопки способов оплаты */
-  .pay-btn {
-    display: flex; align-items: center; gap: 1rem;
-    width: 100%; padding: 1.1rem 1.4rem;
-    border-radius: 16px; cursor: pointer;
-    border: 1px solid;
-    text-decoration: none;
-    font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem;
-    letter-spacing: .06em;
-    transition: all .3s ease; position: relative; overflow: hidden;
-  }
-  .pay-btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent); transition:left .4s ease; }
-  .pay-btn:hover::before { left:100%; }
-
-  .pay-tg {
-    background: linear-gradient(135deg, rgba(0,136,204,.18), rgba(0,160,240,.08));
-    border-color: rgba(0,160,240,.45); color: #5ec9ff;
-  }
-  .pay-tg:hover { background: linear-gradient(135deg, rgba(0,136,204,.32), rgba(0,160,240,.18)); border-color: rgba(0,160,240,.85); color: #fff; box-shadow: 0 0 28px rgba(0,160,240,.35); transform: translateY(-3px); }
-
-  .pay-fp {
-    background: linear-gradient(135deg, rgba(255,180,0,.14), rgba(255,140,0,.07));
-    border-color: rgba(255,165,0,.4); color: #ffc94d;
-  }
-  .pay-fp:hover { background: linear-gradient(135deg, rgba(255,180,0,.28), rgba(255,140,0,.16)); border-color: rgba(255,165,0,.85); color: #fff; box-shadow: 0 0 28px rgba(255,165,0,.28); transform: translateY(-3px); }
-
-  .pay-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .pay-tg .pay-icon { background: rgba(0,160,240,.18); }
-  .pay-fp .pay-icon { background: rgba(255,165,0,.16); }
-  .pay-label { display: flex; flex-direction: column; text-align: left; }
-  .pay-label-main { font-size: 1.05rem; font-weight: 700; line-height: 1.1; }
-  .pay-label-sub { font-size: .75rem; opacity: .6; font-weight: 500; letter-spacing: .04em; margin-top: .15rem; }
-
-  /* Топ-декор модального окна */
-  .modal-top-line { height: 2px; background: linear-gradient(90deg,transparent,#7b00ff,#bf5fff,transparent); border-radius: 28px 28px 0 0; margin: -2.5rem -2rem 2rem; }
 </style>
 </head>
 <body class="bg-grid">
@@ -162,58 +90,6 @@
 <div class="orb" style="width:520px;height:520px;background:rgba(80,0,150,.28);top:-80px;left:-140px;"></div>
 <div class="orb" style="width:420px;height:420px;background:rgba(100,0,200,.2);top:38%;right:-100px;"></div>
 <div class="orb" style="width:320px;height:320px;background:rgba(60,0,120,.25);bottom:10%;left:22%;"></div>
-
-<!-- ═══ MODAL ═══ -->
-<div class="modal-overlay" id="buyModal">
-  <div class="modal-box">
-    <div class="modal-top-line"></div>
-    <button class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
-
-    <div style="text-align:center;margin-bottom:1.75rem;">
-      <div style="display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,rgba(157,0,255,.3),rgba(100,0,180,.2));border:1px solid rgba(157,0,255,.4);margin-bottom:1rem;box-shadow:0 0 24px rgba(157,0,255,.22);">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#bf5fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <h2 class="font-orb" style="font-size:1.1rem;font-weight:900;letter-spacing:.08em;color:#fff;margin-bottom:.4rem;">ВЫБРАТЬ СПОСОБ ОПЛАТЫ</h2>
-      <p style="color:#6b5a80;font-size:.82rem;letter-spacing:.04em;">Выберите удобную платформу для покупки</p>
-    </div>
-
-    <div style="display:flex;flex-direction:column;gap:.85rem;">
-
-      <!-- Telegram -->
-      <a href="https://t.me/d0z3_nyashka" target="_blank" class="pay-btn pay-tg">
-        <div class="pay-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#5ec9ff">
-            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/>
-          </svg>
-        </div>
-        <div class="pay-label">
-          <span class="pay-label-main">Купить в Telegram</span>
-          <span class="pay-label-sub">@d0z3_nyashka · Быстро и удобно</span>
-        </div>
-        <svg style="margin-left:auto;opacity:.5;flex-shrink:0;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
-
-      <!-- FunPay -->
-      <a href="https://funpay.com/users/19929720/" target="_blank" class="pay-btn pay-fp">
-        <div class="pay-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffc94d">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-          </svg>
-        </div>
-        <div class="pay-label">
-          <span class="pay-label-main">Купить на FunPay</span>
-          <span class="pay-label-sub">Безопасная сделка · Защита покупателя</span>
-        </div>
-        <svg style="margin-left:auto;opacity:.5;flex-shrink:0;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
-
-    </div>
-
-    <p style="text-align:center;color:#2e1e3e;font-size:.7rem;letter-spacing:.06em;margin-top:1.4rem;font-family:'Orbitron',monospace;">
-      AURELIAN RECODE · БЕЗОПАСНАЯ ПОКУПКА
-    </p>
-  </div>
-</div>
 
 <!-- ═══ HEADER ═══ -->
 <header class="glass-nav fixed top-0 left-0 right-0 z-50">
@@ -260,7 +136,7 @@
       <span style="color:#bf5fff;filter:drop-shadow(0 0 7px rgba(157,0,255,.8));font-weight:700;">Minecraft 1.21.4</span>
     </p>
     <div class="fu d5" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center;">
-      <button onclick="openModal()" class="btn-neon" style="padding:.95rem 2.5rem;border-radius:14px;font-size:1rem;border:none;">Купить сейчас</button>
+      <a href="#pricing" class="btn-neon" style="padding:.95rem 2.5rem;border-radius:14px;font-size:1rem;border:none;text-decoration:none;">Купить сейчас</a>
       <a href="#features" class="btn-outline" style="padding:.95rem 2rem;border-radius:14px;font-size:1rem;text-decoration:none;">Узнать больше →</a>
     </div>
     <div class="fu d6" style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:3.5rem;">
@@ -330,7 +206,7 @@
     <div style="text-align:center;margin-bottom:3.5rem;">
       <span class="font-orb" style="font-size:.68rem;letter-spacing:.22em;color:#9d00ff;text-transform:uppercase;display:block;margin-bottom:.75rem;">✦ Стоимость ✦</span>
       <h2 class="glass-title" style="font-size:clamp(2rem,5vw,3.5rem);">КУПИТЬ</h2>
-      <p style="color:#6b5a80;font-size:.9rem;margin-top:.85rem;letter-spacing:.05em;">Выберите подходящий план — оплата через <span style="color:#9d00ff;">Telegram</span> или <span style="color:#9d00ff;">FunPay</span></p>
+      <p style="color:#6b5a80;font-size:.9rem;margin-top:.85rem;letter-spacing:.05em;">Выберите подходящий план — оплата через <span style="color:#9d00ff;">FunPay</span></p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem;align-items:stretch;">
 
@@ -346,7 +222,7 @@
             <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены</li>
             <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord</li>
           </ul>
-          <button onclick="openModal()" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;">КУПИТЬ</button>
+          <a href="https://funpay.com/users/19929720/" target="_blank" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;text-decoration:none;">КУПИТЬ</a>
         </div>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(157,0,255,.4),transparent);"></div>
       </div>
@@ -363,7 +239,7 @@
             <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Все модули включены</li>
             <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord</li>
           </ul>
-          <button onclick="openModal()" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;">КУПИТЬ</button>
+          <a href="https://funpay.com/users/19929720/" target="_blank" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;text-decoration:none;">КУПИТЬ</a>
         </div>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(157,0,255,.4),transparent);"></div>
       </div>
@@ -381,7 +257,7 @@
             <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Поддержка в Discord</li>
             <li style="display:flex;gap:.6rem;color:#9a8aae;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;flex-shrink:0;margin-top:.1rem;">✦</span>Приоритетная поддержка</li>
           </ul>
-          <button onclick="openModal()" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;">КУПИТЬ</button>
+          <a href="https://funpay.com/users/19929720/" target="_blank" class="btn-outline" style="display:block;text-align:center;padding:.85rem;border-radius:12px;font-size:.8rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;text-decoration:none;">КУПИТЬ</a>
         </div>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(157,0,255,.4),transparent);"></div>
       </div>
@@ -403,14 +279,14 @@
             <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Приоритетная поддержка 24/7</li>
             <li style="display:flex;gap:.6rem;color:#c4b3d6;font-size:.85rem;align-items:flex-start;"><span style="color:#9d00ff;filter:drop-shadow(0 0 4px rgba(157,0,255,.8));flex-shrink:0;margin-top:.1rem;">✦</span>Уникальный лицензионный ключ</li>
           </ul>
-          <button onclick="openModal()" class="btn-neon" style="display:block;text-align:center;padding:.95rem;border-radius:12px;font-size:.85rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;border:none;">КУПИТЬ НАВСЕГДА</button>
+          <a href="https://funpay.com/users/19929720/" target="_blank" class="btn-neon" style="display:block;text-align:center;padding:.95rem;border-radius:12px;font-size:.85rem;font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.08em;width:100%;border:none;text-decoration:none;">КУПИТЬ НАВСЕГДА</a>
         </div>
         <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(157,0,255,.65),transparent);"></div>
       </div>
     </div>
 
     <p style="text-align:center;color:#3a2a4a;font-size:.72rem;letter-spacing:.06em;margin-top:2rem;">
-      Оплата через Telegram — <span style="color:#6b4a8a;">@d0z3_nyashka</span> · или на <span style="color:#6b4a8a;">FunPay</span>
+      Оплата на <span style="color:#6b4a8a;">FunPay</span> · безопасная сделка с защитой покупателя
     </p>
   </div>
 </section>
@@ -426,10 +302,6 @@
         <div><div class="font-orb" style="font-size:.8rem;font-weight:700;letter-spacing:.14em;color:#fff;">AURELIAN RECODE</div><div style="color:#3a2a4a;font-size:.7rem;margin-top:.15rem;">© 2024 Все права защищены</div></div>
       </div>
       <div style="display:flex;align-items:center;gap:.85rem;">
-        <a href="https://t.me/AurelianClient" target="_blank" class="btn-outline" style="display:flex;align-items:center;gap:.55rem;padding:.65rem 1.25rem;border-radius:12px;font-size:.85rem;text-decoration:none;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
-          Telegram
-        </a>
         <a href="https://discord.gg/EZVhBjxVT" target="_blank" class="btn-outline" style="display:flex;align-items:center;gap:.55rem;padding:.65rem 1.25rem;border-radius:12px;font-size:.85rem;text-decoration:none;">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.082.114 18.105.132 18.12a19.85 19.85 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 13.84 13.84 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
           Discord
@@ -447,31 +319,6 @@
 </footer>
 
 <script>
-  // ── Modal ──
-  var modal = document.getElementById('buyModal');
-
-  function openModal() {
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-
-  // Закрытие по клику на оверлей (но не на сам бокс)
-  modal.addEventListener('click', function(e) {
-    if (e.target === modal) closeModal();
-  });
-
-  // Закрытие по Escape
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal();
-  });
-
   // ── Scroll reveal ──
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
